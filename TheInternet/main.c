@@ -3,11 +3,9 @@
 
 //How many cycles of the clock before we trigger the interupt
 // The VLO is around 12000/second, though environmental conditions change this
-#define LONG_PAUSE 12000
-#define SHORT_PAUSE 2500
-#define R_LED 0x01
-#define Y_LED 0x02
-#define G_LED 0x04
+#define LONG_PAUSE 20000
+#define SHORT_PAUSE 5000
+#define LED 0x01
 
 
 void main(void)
@@ -16,10 +14,10 @@ void main(void)
 
 	/* Set the entire port P1 to output to reduce power consumption. */
 	P1DIR = 0xff;
-	P1OUT = R_LED | Y_LED | G_LED;
+	P1OUT = LED;
 	// the VLO must be enabled by setting bits 4 and 5 (LFXT1S) to 2 in the Basic Clock System Control Register 3 (BCSCTL3), as follows:
 	BCSCTL3 |= LFXT1S_2; //Enable the build in VLO clock
-	TACCR0 = LONG_PAUSE;
+	TACCR0 = SHORT_PAUSE;
 
 	// We want to be notified when the timer resets, so we enable the register 0
 	// interrupt by setting bit 4 (CCIE) of the Timer_A Capture/Compare Control Register 0 (TACCTL0).
@@ -44,7 +42,7 @@ void main(void)
 	/* Unreached.  If this code were reached, the LED would stay
 	 * continuously lit. */
 	while (1)
-		P1OUT =0x0;
+		P1OUT = LED;
 }
 
 
@@ -52,15 +50,7 @@ void main(void)
 #pragma vector=TIMERA0_VECTOR
 __interrupt void Timer_A (void)
 {
-	if (P1OUT == R_LED){
-		P1OUT =  R_LED | Y_LED;
-	}else if (P1OUT == (R_LED | Y_LED)){
-		P1OUT = Y_LED;
-	}else if(P1OUT == Y_LED){
-		P1OUT =  G_LED;
-	}else{
-		P1OUT = R_LED ;
-	}
+	P1OUT ^= LED;
 
 	if (TACCR0 == LONG_PAUSE){
 		TACCR0 = SHORT_PAUSE;
