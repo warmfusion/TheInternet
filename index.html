@@ -44,22 +44,22 @@
 <li>Stripboard</li>
 <li>Small wires(for jumpers)</li>
 <li>Black Hobby Box</li>
-</ul><p>Iâ€™d have liked a nice LED mount, but Maplin didnâ€™t have any available, so that might be a later improvement.</p>
+</ul><p>I'd have liked a nice LED mount, but Maplin didn't have any available, so that might be a later improvement.</p>
 
 <p>The Idea - Make a blinky box that matches the â€œfeelâ€ of The Internet from the <a href="http://www.youtube.com/watch?v=iDbyYGrswtg">IT Crowd</a></p>
 
-<p>I wanted to create a properly wireless device, with as long life as possible. Originally planned to have a few solar cells for indefinite runtime, but I couldnâ€™t find any in my â€œSpare partsâ€ drawer. Instead, after failing to work out how proper electrical engineers do blinky things, settled on using a microcontroller. </p>
+<p>I wanted to create a properly wireless device, with as long life as possible. Originally planned to have a few solar cells for indefinite runtime, but I couldn't find any in my â€œSpare partsâ€ drawer. Instead, after failing to work out how proper electrical engineers do blinky things, settled on using a microcontroller. </p>
 
 <p>Aside from being horribly overengineered, I can excuse myself by suggesting that it may be extended at later dates with some features like an RGB LED, LDRs etc. For nowâ€¦ <em>shrugs</em></p>
 
-<p>Again, I needed it to be long lasting; I donâ€™t want to waste batteries on such a thing, so I spent some time looking at running the MSP430 in low power mode, along with some interrupt coding.</p>
+<p>Again, I needed it to be long lasting; I don't want to waste batteries on such a thing, so I spent some time looking at running the MSP430 in low power mode, along with some interrupt coding.</p>
 
-<p>The code is available from my GitHub repository here: [warmfusion/TheInternet](<a href="https://github.com/warmfusion/TheInternet(">https://github.com/warmfusion/TheInternet(</a></p>
+<p>The code is available from my GitHub repository here: <a href="https://github.com/warmfusion/TheInternet">TheInternet</a></p>
 
 <p>The basics are;</p>
 
 <ul>
-<li>Set the P1 ports to OUTPUT as this reduces current consumption on the MSP430 as it doesnâ€™t try and read any input </li>
+<li>Set the P1 ports to OUTPUT as this reduces current consumption on the MSP430 as it doesn't try and read any input </li>
 <li>Turn on the input VLO oscillator ready to start counting</li>
 <li>Ensure interrupts are going, and go into Low Power Mode 3 (LPM3)</li>
 <li>After a delay, the interrupt is called, toggling the LED </li>
